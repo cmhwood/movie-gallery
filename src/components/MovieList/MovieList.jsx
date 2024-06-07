@@ -3,9 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import './MovieList.css';
 
 function MovieList() {
-
   const dispatch = useDispatch();
-  const movies = useSelector(store => store.movies);
+  const movies = useSelector((store) => store.movies);
 
   useEffect(() => {
     dispatch({ type: 'FETCH_MOVIES' });
@@ -14,12 +13,12 @@ function MovieList() {
   return (
     <main>
       <h1>MovieList</h1>
-      <section className="movies">
-        {movies.map(movie => {
+      <section className='movies'>
+        {movies.map((movie) => {
           return (
             <div data-testid='movieItem' key={movie.id}>
               <h3>{movie.title}</h3>
-              <img src={movie.poster} alt={movie.title}/>
+              <img src={movie.poster} alt={movie.title} /> {/* clicking goes to details page */}
             </div>
           );
         })}

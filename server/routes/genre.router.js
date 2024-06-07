@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
       res.send(result.rows);
     })
     .catch((error) => {
-      console.log(`Error on query ${error}`);
+      console.log('ERROR: Get all genres', err);
       res.sendStatus(500);
     });
 });
