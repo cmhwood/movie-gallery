@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
+import './movieDetails.css';
 
 export default function MovieDetails() {
   const movies = useSelector((store) => store.movies);
@@ -20,19 +21,19 @@ export default function MovieDetails() {
   // Displays movie details on the DOM
   // Bring in Title, Genra, Poster, Description
   return (
-    <>
-      <h1>Movie Details</h1>
-      <h4>{currentMovie[0]?.title}</h4>
+    <div className='desc'>
       <img src={currentMovie[0]?.poster} />
-      <h4>Genres</h4>
+      <h1><strong>Movie Details</strong></h1>
+      <h4>{currentMovie[0]?.title}</h4>
+      <h4><strong>Genres:</strong></h4>
       {currentGenres?.map((item, i) => (
         <p key={i}>{item.genre}</p>
       ))}
-      <h4>Description</h4>
+      <h4><strong>Description:</strong></h4>
       <p>{currentMovie[0]?.description}</p>
-      <button data-testid='toList' onClick={() => history.push('/')}>
+      <button class='btn default' data-testid='toList' onClick={() => history.push('/')}>
         Return to Movies
       </button>
-    </>
+    </div>
   );
 }

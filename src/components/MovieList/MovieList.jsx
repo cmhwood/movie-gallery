@@ -16,7 +16,7 @@ function MovieList() {
   // Displays movie list on the DOM
   return (
     <main>
-      <h1>MovieList</h1>
+      <h1>Movie List</h1>
       <section className='movies'>
         {movies.map((movie) => {
           return (

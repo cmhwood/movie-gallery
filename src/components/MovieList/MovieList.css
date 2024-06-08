@@ -1,4 +1,8 @@
 .movies {
-    display : flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+h1 {
+  font-size: large;
 }
