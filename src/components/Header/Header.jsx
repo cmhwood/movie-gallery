@@ -1,5 +1,6 @@
 import React from 'react';
-import { Box, Button, Flex, Heading, Spacer, IconButton, useColorMode } from '@chakra-ui/react';
+import { Box, Button, Flex, Heading, Spacer, IconButton, useColorMode } from '@chakra-ui/react'; // npm i @chakra-ui/react
+import { SunIcon, MoonIcon } from '@chakra-ui/icons'; // npm i @chakra-ui/icons
 
 const Header = () => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -8,7 +9,15 @@ const Header = () => {
     <header>
       <h1>The Movies Saga!</h1>
       <Box>
-        <Button onClick={toggleColorMode}>Toggle {colorMode === 'light' ? 'Dark' : 'Light'}</Button>
+        {/* Theme toggle button */}
+        <IconButton
+          icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+          boxSize={6}
+          variant='outline'
+          onClick={toggleColorMode}
+        //   {colorMode === 'light' ? 'Dark' : 'Light'}
+          aria-label={`Switch to ${colorMode === 'light' ? 'dark' : 'light'} mode`}
+        />
       </Box>
     </header>
   );
