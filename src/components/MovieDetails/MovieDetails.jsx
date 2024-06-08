@@ -22,9 +22,9 @@ export default function MovieDetails() {
   // Bring in Title, Genra, Poster, Description
   return (
     <div className='desc'>
-      <img src={currentMovie[0]?.poster} />
       <h1><strong>Movie Details</strong></h1>
       <h4>{currentMovie[0]?.title}</h4>
+      <img src={currentMovie[0]?.poster} />
       <h4><strong>Genres:</strong></h4>
       {currentGenres?.map((item, i) => (
         <p key={i}>{item.genre}</p>
