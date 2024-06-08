@@ -2,22 +2,19 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../modules/pool');
 
-// Endpoint to get all movies with their genres
 router.get('/', (req, res) => {
+  // Add query to get all genres this grabs just the genre title and id
   const query = `
-      SELECT m.*, array_agg(g.name) AS genres
-      FROM movies m
-      LEFT JOIN movies_genres mg ON m.id = mg.movie_id
-      LEFT JOIN genres g ON mg.genre_id = g.id
-      GROUP BY m.id
-      ORDER BY m.title ASC;
+      select movies.id, movies.title, genres.name as genre from movies 
+  join movies_genres on movies.id = movies_genres.movie_id
+  join genres on movies_genres.genre_id = genres.id;
     `;
   pool
-    .query(queryText)
+    .query(query)
     .then((result) => {
       res.send(result.rows);
     })
-    .catch((error) => {
+    .catch((err) => {
       console.log('ERROR: Get all genres', err);
       res.sendStatus(500);
     });
