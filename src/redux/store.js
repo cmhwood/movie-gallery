@@ -50,6 +50,7 @@ const movies = (state = [], action) => {
   }
 }
 
+// Reducers
 // Used to store the movie genres
 const genres = (state = [], action) => {
   switch (action.type) {
