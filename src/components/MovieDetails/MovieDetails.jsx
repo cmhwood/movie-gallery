@@ -19,17 +19,23 @@ export default function MovieDetails() {
   }, []);
 
   // Displays movie details on the DOM
-  // Bring in Title, Genra, Poster, Description
+  // Bring in Title, Genre, Poster, Description
   return (
     <div className='desc'>
-      <h1><strong>Movie Details</strong></h1>
+      <h1>
+        <strong>Movie Details</strong>
+      </h1>
       <h4>{currentMovie[0]?.title}</h4>
       <img src={currentMovie[0]?.poster} />
-      <h4><strong>Genres:</strong></h4>
+      <h4>
+        <strong>Genres:</strong>
+      </h4>
       {currentGenres?.map((item, i) => (
         <p key={i}>{item.genre}</p>
       ))}
-      <h4><strong>Description:</strong></h4>
+      <h4>
+        <strong>Description:</strong>
+      </h4>
       <p>{currentMovie[0]?.description}</p>
       <button class='btn default' data-testid='toList' onClick={() => history.push('/')}>
         Return to Movies
