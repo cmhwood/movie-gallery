@@ -17,30 +17,30 @@ function* fetchAllMovies() {
     // Set the value of the movies reducer:
     yield put({
       type: 'SET_MOVIES',
-      payload: moviesResponse.data,
+      payload: moviesResponse.data
     });
+
   } catch (error) {
     console.log('fetchAllMovies error:', error);
   }
 }
-
+// grabs our genres to display on the details page
 function* fetchAllGenres() {
   try {
-    // Get the genres to display on details page
     const genresResponse = yield axios.get('/api/genres');
     yield put({
       type: 'SET_GENRES',
-      payload: genresResponse.data,
+      payload: genresResponse.data
     });
+
   } catch (error) {
-    console.log('fetchAllGenres error', error);
+    console.log('fetchAllGenres error:', error);
   }
 }
 
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();
 
-// Reducers
 // Used to store movies returned from the server
 const movies = (state = [], action) => {
   switch (action.type) {
@@ -49,7 +49,7 @@ const movies = (state = [], action) => {
     default:
       return state;
   }
-};
+}
 
 // Used to store the movie genres
 const genres = (state = [], action) => {
@@ -59,7 +59,7 @@ const genres = (state = [], action) => {
     default:
       return state;
   }
-};
+}
 
 // Create one store that all components can use
 const storeInstance = createStore(
@@ -68,7 +68,7 @@ const storeInstance = createStore(
     genres,
   }),
   // Add sagaMiddleware to our store
-  applyMiddleware(sagaMiddleware, logger)
+  applyMiddleware(sagaMiddleware, logger),
 );
 
 // Pass rootSaga into our sagaMiddleware

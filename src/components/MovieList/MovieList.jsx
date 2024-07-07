@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './MovieList.css';
 import { useHistory } from 'react-router-dom';
+import { Heading } from '@chakra-ui/react';
 
 function MovieList() {
   const history = useHistory();
@@ -16,7 +17,9 @@ function MovieList() {
   // Displays movie list on the DOM
   return (
     <main>
-      <h1>Movie List</h1>
+      <Heading as='h1' size='lg' letterSpacing={'tighter'}>
+        The Movie Gallery
+      </Heading>
       <section className='movies'>
         {movies.map((movie) => {
           return (

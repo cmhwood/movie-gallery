@@ -1,29 +1,52 @@
 import React from 'react';
+import { Box, Flex, Heading, Spacer, IconButton, useColorMode } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
-import { Box, Button, Flex, Heading, Spacer, IconButton, useColorMode } from '@chakra-ui/react'; // npm i @chakra-ui/react
-import { SunIcon, MoonIcon } from '@chakra-ui/icons'; // npm i @chakra-ui/icons
+import { FaSun, FaMoon } from 'react-icons/fa';
 
 const Header = () => {
   const { colorMode, toggleColorMode } = useColorMode();
 
   return (
-    <header>
-      <h1>The Movies Saga!</h1>
-      <Box>
-        <RouterLink to="/">
-        Home
+    <Flex
+      as='nav'
+      align='center'
+      justify='space-between'
+      wrap='wrap'
+      padding={6}
+      bg='brand.500'
+      color='black'
+    >
+      <Flex align='center' mr={5}>
+        {/* <Heading as='h1' size='lg' letterSpacing={'tighter'}>
+          The Movie Gallery
+        </Heading> */}
+      </Flex>
+
+      <Spacer />
+
+      <Box display='flex' alignItems='center'>
+        <RouterLink to='/' style={{ marginRight: '16px', color: 'black', textDecoration: 'none' }}>
+          Home
         </RouterLink>
-        {/* Theme toggle button */}
+        {/* <RouterLink
+          to='/add'
+          style={{ marginRight: '16px', color: 'black', textDecoration: 'none' }}
+        >
+          Add Movie
+        </RouterLink> */}
+
+        {/* Theme Toggle Button */}
         <IconButton
-          icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
-          boxSize={6}
-          variant='outline'
+          icon={colorMode === 'light' ? <FaMoon /> : <FaSun />}
           onClick={toggleColorMode}
-        //   {colorMode === 'light' ? 'Dark' : 'Light'}
+          colorScheme='brand'
+          variant='outline'
+          size='sm'
           aria-label={`Switch to ${colorMode === 'light' ? 'dark' : 'light'} mode`}
+          mr={4}
         />
       </Box>
-    </header>
+    </Flex>
   );
 };
 
