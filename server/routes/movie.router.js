@@ -1,9 +1,9 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const pool = require("../modules/pool");
+const pool = require('../modules/pool');
 
 // GETS ALL MOVIES
-router.get("/", (req, res) => {
+router.get('/', (req, res) => {
   const query = `
     SELECT * FROM "movies"
       ORDER BY "id" ASC;
@@ -14,13 +14,13 @@ router.get("/", (req, res) => {
       res.send(result.rows);
     })
     .catch((err) => {
-      console.log("ERROR: Get all movies", err);
+      console.log('ERROR: Get all movies', err);
       res.sendStatus(500);
     });
 });
 
 // GETS THE DETAILS FOR THE MOVIE THAT WAS CLICKED ON
-router.get("/:id", (req, res) => {
+router.get('/:id', (req, res) => {
   movieId = req.params.id;
   const query = `
   SELECT "movies"."title", "movies"."description", "movies"."poster", STRING_AGG("genres"."name", ', ') as "genre" 
@@ -37,51 +37,52 @@ router.get("/:id", (req, res) => {
       res.send(result.rows);
     })
     .catch((err) => {
-      console.log("ERROR: Get a movies details", err);
+      console.log('ERROR: Get a movies details', err);
       res.sendStatus(500);
     });
 });
 
 //EDIT PAGE PUT
-router.put("/:id", (req, res) => {
+router.put('/:id', (req, res) => {
   const updatedMovie = req.body;
-  // req.body should contain the data needed for PUT
   const queryText = `
     UPDATE "movies"
-      SET 
-        "title"=$1,
-        "description" =$2
-      WHERE
-        "id"=$3;
+    SET "title"=$1, "description"=$2
+    WHERE "id"=$3;
   `;
-  const queryValues = [updatedMovie.title, updatedMovie.description, updatedMovie.id];
+  const queryValues = [updatedMovie.title, updatedMovie.description, req.params.id];
+
   pool
     .query(queryText, queryValues)
-    .then((result) => {
-      res.sendStatus(200);
-    })
+    .then(() => res.sendStatus(200))
     .catch((err) => {
-      console.log("Error in PUT /api/movies/:id", err);
+      console.log('Error in PUT /api/movies/:id', err);
       res.sendStatus(500);
     });
 });
 
 // EDIT PAGE DELETE
 /* DELETE BUTTON MIGHT NEED A DB.SQL ADJUSTMENT FOR CASCADE TO WORK, CHECK database.sql FILE IF NOT WORKING */
-router.delete("/:id", (req, res) => {
+router.delete('/:id', (req, res) => {
+  const queryText = 'DELETE FROM "movies" WHERE "id" = $1;';
+  const values = [req.params.id];
+
+  console.log('Delete request received for movie ID:', req.params.id); // Log the request
+
   pool
-    .query('DELETE FROM "movies" WHERE id=$1', [req.params.id])
+    .query(queryText, values)
     .then((result) => {
-      res.sendStatus(200);
+      console.log('Delete successful for movie ID:', req.params.id); // Log successful deletion
+      res.sendStatus(204); // No content
     })
-    .catch((err) => {
-      console.log("Error in PUT /api/movies/:id", err);
+    .catch((error) => {
+      console.log('Error in DELETE route:', error);
       res.sendStatus(500);
     });
 });
 
 // given this, used in AddMovie
-router.post("/", (req, res) => {
+router.post('/', (req, res) => {
   //STRETCH GOAL
   console.log(req.body);
   // RETURNING "id" will give us back the id of the created movie
@@ -92,17 +93,13 @@ router.post("/", (req, res) => {
       ($1, $2, $3)
       RETURNING "id";
   `;
-  const insertMovieValues = [
-    req.body.title,
-    req.body.poster,
-    req.body.description,
-  ];
+  const insertMovieValues = [req.body.title, req.body.poster, req.body.description];
   // FIRST QUERY MAKES MOVIE
   pool
     .query(insertMovieQuery, insertMovieValues)
     .then((result) => {
       // ID IS HERE!
-      console.log("New Movie Id:", result.rows[0].id);
+      console.log('New Movie Id:', result.rows[0].id);
       const createdMovieId = result.rows[0].id;
 
       // Now handle the genre reference:

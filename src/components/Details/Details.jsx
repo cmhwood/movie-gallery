@@ -1,7 +1,5 @@
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 
 export default function Details() {
@@ -12,28 +10,25 @@ export default function Details() {
 
   useEffect(() => {
     // when page loads talk to sagas and reducers to get selected movie's details
-    console.log('params.id:', params.id);
     dispatch({ type: 'FETCH_DETAILS', payload: params.id });
-  }, [params.id]);
-
-  console.log('details content', details);
+  }, [params.id, dispatch]);
 
   if (params.id === undefined) {
     return <h1>Loading...</h1>;
   }
 
-  function deleteMovie() {
-    //delete button triggers this and sends a DELETE request to db w/id
+  const deleteMovie = () => {
+    console.log('Deleting movie with ID:', params.id);
     dispatch({
       type: 'DELETE_MOVIE',
       payload: params.id,
     });
-    history.push(`/`); // takes user back to home
-  }
+    history.push(`/`);
+  };
 
   return (
     <>
-      <hr />
+      <br />
       <div className='container-gallery'>
         <div className='details-container'>
           <div className='image-container'>
@@ -48,7 +43,7 @@ export default function Details() {
           </div>
         </div>
       </div>
-      <hr />
+      <br />
       {/* THIS IS ALL FOR SOME FANCY BUTTONS */}
       <div className='btn-group' role='group' aria-label='Basic example'>
         <button type='button' className='btn btn-secondary' onClick={() => history.push(`/`)}>
@@ -61,7 +56,7 @@ export default function Details() {
         >
           EDIT
         </button>
-        <button type='button' className='btn btn-secondary' onClick={() => deleteMovie()}>
+        <button type='button' className='btn btn-secondary' onClick={deleteMovie}>
           DELETE
         </button>
       </div>

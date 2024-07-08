@@ -1,41 +1,31 @@
-import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import './MovieList.css';
 import { useHistory } from 'react-router-dom';
-import { Heading } from '@chakra-ui/react';
+import { Button, Row, Col } from 'react-bootstrap';
+import MovieListItem from '../MovieListItem/MovieListItem';
+import './MovieList.css';
 
 function MovieList() {
-  const history = useHistory();
-  const dispatch = useDispatch();
   const movies = useSelector((store) => store.movies);
+  const history = useHistory();
 
-  useEffect(() => {
-    dispatch({ type: 'FETCH_MOVIES' });
-    dispatch({ type: 'FETCH_GENRES' });
-  }, []);
-
-  // Displays movie list on the DOM
   return (
     <main>
-      <Heading as='h1' size='lg' letterSpacing={'tighter'}>
-        The Movie Gallery
-      </Heading>
-      <section className='movies'>
-        {movies.map((movie) => {
-          return (
-            <div data-testid='movieItem' key={movie.id}>
-              <h3>{movie.title}</h3>
-              {/* clicking goes to details page */}
-              <img
-                onClick={() => history.push(`/${movie.id}`)}
-                data-testid='toDetails'
-                src={movie.poster}
-                alt={movie.title}
-              />
-            </div>
-          );
-        })}
-      </section>
+      <Button onClick={() => history.push(`/addMovie`)}>ADD NEW MOVIE</Button>
+      <div className='container-gallery'>
+      <br />
+        <section className='movies'>
+          <Row xs={1} sm={3} md={4} className='g-4'>
+            {movies.map((movie) => (
+              <Col key={movie.id}>
+                <div className='movie-item'>
+                  <h5 className='movie-title'>{movie.title}</h5>
+                  <MovieListItem movie={movie} />
+                </div>
+              </Col>
+            ))}
+          </Row>
+        </section>
+      </div>
     </main>
   );
 }

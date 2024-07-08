@@ -17,9 +17,9 @@ function App() {
   return (
     <>
       <div className='App'>
-        <hr />
+        {/* <hr /> */}
         <h1>The Movie Gallery!</h1>
-        <hr />
+        {/* <hr /> */}
         {/* // header that lives on every page */}
         <Router>
           <Route path='/' exact>

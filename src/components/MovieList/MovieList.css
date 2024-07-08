@@ -2,3 +2,16 @@
   display: flex;
   flex-wrap: wrap;
 }
+
+.movie-item {
+  text-align: center; /* Center align title and poster */
+}
+
+.movie-title {
+  margin-bottom: 10px; /* Space between title and poster */
+  font-weight: bold;
+}
+
+/* .btn-primary {
+  padding-bottom: 15px;
+} */

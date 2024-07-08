@@ -75,3 +75,22 @@ VALUES
 (12,6), (12,3),           -- Social Net
 (13,6), (13,10), (13,1),  -- Titanic
 (14,1), (14,2), (14,4);   -- Toy Story
+
+
+ALTER TABLE "movies_genres"
+DROP CONSTRAINT "movies_genres_movie_id_fkey";
+
+ALTER TABLE "movies_genres"
+ADD CONSTRAINT "movies_genres_movie_id_fkey"
+FOREIGN KEY ("movie_id")
+REFERENCES "movies" ("id")
+ON DELETE CASCADE;
+
+ALTER TABLE "movies_genres"
+DROP CONSTRAINT "movies_genres_genre_id_fkey";
+
+ALTER TABLE "movies_genres"
+ADD CONSTRAINT "movies_genres_genre_id_fkey"
+FOREIGN KEY ("genre_id")
+REFERENCES "genres" ("id")
+ON DELETE CASCADE;
