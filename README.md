@@ -3,11 +3,11 @@
 ## Description
 Explore movies: Browse the Movie Poster Gallery on the homepage to see what's available.
 
-Create your own: Feeling artistic? Design your own movie poster with a title, genre, and description using our easy-to-use form.
+Create your own: Feeling artistic? Design your own movie poster with a title, genre, and description using the easy-to-use form.
 
 Make changes: No worries if you make a mistake! You can easily update movie information through the edit form on the details page. The form will even pre-fill the details for you to make edits quicker.
 
-Keep it tidy: Don't need a movie anymore? Simply delete it to make room for your favorites. This makes our app a complete CRUD (Create, Read, Update, Delete) experience for managing your movie collection.
+Keep it tidy: Don't need a movie anymore? Simply delete it to make room for your favorites. This makes the app a complete CRUD (Create, Read, Update, Delete) experience for managing your movie collection.
 
 ## To view in a browser
 
