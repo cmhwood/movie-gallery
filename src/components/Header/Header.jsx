@@ -1,3 +1,5 @@
+// This header is not used
+
 import React from 'react';
 import { Box, Flex, Heading, Spacer, IconButton, useColorMode } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';

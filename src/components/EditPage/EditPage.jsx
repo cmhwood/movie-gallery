@@ -52,7 +52,7 @@ export default function EditPage() {
       {showAlert && (
         <div className='alert alert-dismissible alert-danger'>
           <button type='button' className='btn-close' onClick={() => setShowAlert(false)}></button>
-          <strong>Oh snap!</strong> Change a few things up and try submitting again.
+          <strong>Oh oh!</strong> Try again.
         </div>
       )}
       <form>

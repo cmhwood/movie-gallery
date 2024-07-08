@@ -4,17 +4,15 @@ import createSagaMiddleware from 'redux-saga';
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
-// Create the rootSaga generator function
 function* rootSaga() {
   yield takeEvery('FETCH_MOVIES', fetchAllMovies);
   yield takeEvery('FETCH_DETAILS', fetchDetails);
   yield takeEvery('POST_MOVIE', postMovie);
   yield takeEvery('FETCH_GENRES', fetchGenresSaga);
   yield takeEvery('EDIT_MOVIE', editMovieSaga);
-  yield takeEvery('DELETE_MOVIE', deleteMovieSaga);
+  yield takeEvery('DELETE_MOVIE', deleteMovie);
 }
 
-// Sagas
 function* fetchAllMovies() {
   try {
     const moviesResponse = yield call(axios.get, '/api/movies');
@@ -69,20 +67,14 @@ function* deleteMovie(action) {
     console.log('Deleting movie with ID:', action.payload);
     yield call(axios.delete, `/api/movies/${action.payload}`);
     console.log('Delete request successful');
-    yield put({ type: 'FETCH_MOVIES' }); // Re-fetch the movies after deleting
+    yield put({ type: 'FETCH_MOVIES' });
   } catch (error) {
     console.log('Error with deleteMovie saga:', error);
   }
 }
 
-function* deleteMovieSaga() {
-  yield takeLatest('DELETE_MOVIE', deleteMovie);
-}
-
-// Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();
 
-// Reducers
 const details = (state = {}, action) => {
   switch (action.type) {
     case 'SET_DETAILS':
@@ -110,13 +102,11 @@ const genres = (state = [], action) => {
   }
 };
 
-// Create the store
 const storeInstance = createStore(
   combineReducers({ movies, genres, details }),
   applyMiddleware(sagaMiddleware, logger)
 );
 
-// Run the rootSaga
 sagaMiddleware.run(rootSaga);
 
 export default storeInstance;

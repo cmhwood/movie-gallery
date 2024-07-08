@@ -3,26 +3,22 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 
 export default function Details() {
-  const details = useSelector((store) => store.details); // talks to store reducer, object and keys are used to render data
+  const details = useSelector((store) => store.details);
   const params = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // when page loads talk to sagas and reducers to get selected movie's details
     dispatch({ type: 'FETCH_DETAILS', payload: params.id });
   }, [params.id, dispatch]);
 
-  if (params.id === undefined) {
+  if (!details) {
     return <h1>Loading...</h1>;
   }
 
   const deleteMovie = () => {
     console.log('Deleting movie with ID:', params.id);
-    dispatch({
-      type: 'DELETE_MOVIE',
-      payload: params.id,
-    });
+    dispatch({ type: 'DELETE_MOVIE', payload: params.id });
     history.push(`/`);
   };
 
@@ -44,7 +40,6 @@ export default function Details() {
         </div>
       </div>
       <br />
-      {/* THIS IS ALL FOR SOME FANCY BUTTONS */}
       <div className='btn-group' role='group' aria-label='Basic example'>
         <button type='button' className='btn btn-secondary' onClick={() => history.push(`/`)}>
           HOME

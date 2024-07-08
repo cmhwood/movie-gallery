@@ -87,10 +87,10 @@ REFERENCES "movies" ("id")
 ON DELETE CASCADE;
 
 ALTER TABLE "movies_genres"
-DROP CONSTRAINT "movies_genres_genre_id_fkey";
+  DROP CONSTRAINT "movies_genres_genre_id_fkey";
 
 ALTER TABLE "movies_genres"
-ADD CONSTRAINT "movies_genres_genre_id_fkey"
-FOREIGN KEY ("genre_id")
-REFERENCES "genres" ("id")
-ON DELETE CASCADE;
+  ADD CONSTRAINT "movies_genres_genre_id_fkey"
+    FOREIGN KEY ("genre_id")
+    REFERENCES "genres" ("id")
+  ON DELETE CASCADE;
